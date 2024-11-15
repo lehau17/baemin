@@ -1,0 +1,90 @@
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+export declare class RestaurantService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    create(data: Prisma.restaurantsCreateInput, userId: number): Promise<{
+        id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
+        user_id: number | null;
+        res_name: string;
+        res_address: Prisma.JsonValue;
+        res_avg_rating: number | null;
+        res_time_start: string | null;
+        res_time_end: string | null;
+        res_total_rating: number | null;
+        res_description: string | null;
+    }>;
+    findAll(limit?: number, skip?: number, cursor?: number): Promise<{
+        id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
+        user_id: number | null;
+        res_name: string;
+        res_address: Prisma.JsonValue;
+        res_avg_rating: number | null;
+        res_time_start: string | null;
+        res_time_end: string | null;
+        res_total_rating: number | null;
+        res_description: string | null;
+    }[]>;
+    findOne(id: number): Promise<{
+        id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
+        user_id: number | null;
+        res_name: string;
+        res_address: Prisma.JsonValue;
+        res_avg_rating: number | null;
+        res_time_start: string | null;
+        res_time_end: string | null;
+        res_total_rating: number | null;
+        res_description: string | null;
+    }>;
+    getRestaurantByUser(userId: number): Promise<{
+        id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
+        user_id: number | null;
+        res_name: string;
+        res_address: Prisma.JsonValue;
+        res_avg_rating: number | null;
+        res_time_start: string | null;
+        res_time_end: string | null;
+        res_total_rating: number | null;
+        res_description: string | null;
+    }>;
+    update(id: number, data: Prisma.restaurantsUpdateInput): Promise<{
+        id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
+        user_id: number | null;
+        res_name: string;
+        res_address: Prisma.JsonValue;
+        res_avg_rating: number | null;
+        res_time_start: string | null;
+        res_time_end: string | null;
+        res_total_rating: number | null;
+        res_description: string | null;
+    }>;
+    remove(id: number): Promise<{
+        id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
+        user_id: number | null;
+        res_name: string;
+        res_address: Prisma.JsonValue;
+        res_avg_rating: number | null;
+        res_time_start: string | null;
+        res_time_end: string | null;
+        res_total_rating: number | null;
+        res_description: string | null;
+    }>;
+}

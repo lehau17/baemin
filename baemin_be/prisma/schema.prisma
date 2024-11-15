@@ -1,0 +1,197 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id               Int       @id @default(autoincrement())
+  cate_name        String?   @db.VarChar
+  cate_description String?
+  cate_icon        String?   @db.VarChar
+  status           Int?
+  created_at       DateTime? @default(now()) @db.Timestamp(6)
+  updated_at       DateTime? @default(now()) @db.Timestamp(6)
+  foods            foods[]
+}
+
+model food_likes {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  food_id    Int?
+  status     Int?
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  foods      foods?    @relation(fields: [food_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model food_ratings {
+  id                Int       @id @default(autoincrement())
+  user_id           Int?
+  food_id           Int?
+  food_rate_point   Int?
+  food_rate_comment String?
+  status            Int?
+  created_at        DateTime? @default(now()) @db.Timestamp(6)
+  updated_at        DateTime? @default(now()) @db.Timestamp(6)
+  foods             foods?    @relation(fields: [food_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users             users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model foods {
+  id                Int             @id @default(autoincrement())
+  res_id            Int?
+  cate_id           Int?
+  food_name         String?         @db.VarChar(255)
+  food_description  String?
+  food_images       String?         @db.VarChar
+  food_total_like   Int?            @default(0)
+  food_total_rating Int?            @default(0)
+  food_avg_rating   Int?            @default(0)
+  status            Int?            @default(1)
+  created_at        DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at        DateTime?       @default(now()) @db.Timestamp(6)
+  cart_items        cart_items[]
+  food_likes        food_likes[]
+  food_ratings      food_ratings[]
+  categories        categories?     @relation(fields: [cate_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  restaurants       restaurants?    @relation(fields: [res_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  foods_details     foods_details[]
+  order_details     order_details[]
+}
+
+model foods_details {
+  id         Int    @id @default(autoincrement())
+  food_id    Int?
+  food_price Float?
+  food_stock Int?
+  foods      foods? @relation(fields: [food_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model restaurant_ratings {
+  id               Int          @id @default(autoincrement())
+  user_id          Int?
+  res_id           Int?
+  res_rate_point   Int?
+  res_rate_comment String?
+  status           Int?
+  created_at       DateTime?    @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?    @default(now()) @db.Timestamp(6)
+  restaurants      restaurants? @relation(fields: [res_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users            users?       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model restaurants {
+  id                 Int                  @id @default(autoincrement())
+  user_id            Int?
+  res_name           String               @db.VarChar
+  res_address        Json
+  res_avg_rating     Float?               @default(4.5) @db.Real
+  res_time_start     String?              @default("10.00") @db.VarChar
+  res_time_end       String?              @default("22.00") @db.VarChar
+  res_total_rating   Int?                 @default(0)
+  status             Int?                 @default(1)
+  created_at         DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at         DateTime?            @default(now()) @db.Timestamp(6)
+  res_description    String?
+  foods              foods[]
+  restaurant_ratings restaurant_ratings[]
+  users              users?               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id                 Int                  @id @default(autoincrement())
+  usr_username       String?              @unique @db.VarChar
+  usr_password       String?              @db.VarChar
+  usr_first_name     String?              @db.VarChar
+  usr_last_name      String?              @db.VarChar
+  usr_phone          String?              @db.VarChar
+  usr_email          String?              @db.VarChar
+  status             Int?
+  created_at         DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at         DateTime?            @default(now()) @db.Timestamp(6)
+  addresses          addresses[]
+  carts              carts[]
+  food_likes         food_likes[]
+  food_ratings       food_ratings[]
+  orders             orders[]
+  restaurant_ratings restaurant_ratings[]
+  restaurants        restaurants[]
+}
+
+model cart_items {
+  id         Int       @id @default(autoincrement())
+  cart_id    Int
+  food_id    Int
+  quantity   Int?      @default(1)
+  status     Int?
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  price      Float?
+  carts      carts     @relation(fields: [cart_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  foods      foods     @relation(fields: [food_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model carts {
+  id         Int          @id @default(autoincrement())
+  user_id    Int?
+  status     Int?
+  created_at DateTime?    @default(now()) @db.Timestamp(6)
+  updated_at DateTime?    @default(now()) @db.Timestamp(6)
+  cart_items cart_items[]
+  users      users?       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model order_details {
+  id          Int       @id @default(autoincrement())
+  order_id    Int?
+  food_id     Int?
+  quantity    Int?      @default(1)
+  price       Float
+  total_price Float
+  status      Int?
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  updated_at  DateTime? @default(now()) @db.Timestamp(6)
+  foods       foods?    @relation(fields: [food_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  orders      orders?   @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model orders {
+  id               Int             @id @default(autoincrement())
+  user_id          Int?
+  total_amount     Float
+  total_price      Float
+  voucher_used     Json?
+  status           Int?
+  created_at       DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?       @default(now()) @db.Timestamp(6)
+  address_shipping Json?
+  order_details    order_details[]
+  users            users?          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model vouchers {
+  id               Int       @id @default(autoincrement())
+  code             String    @unique @db.VarChar(255)
+  discount_percent Float?
+  discount_amount  Float?
+  minimum_order    Float?
+  valid_from       DateTime  @db.Timestamp(6)
+  valid_to         DateTime  @db.Timestamp(6)
+  status           Int?
+  created_at       DateTime? @default(now()) @db.Timestamp(6)
+  updated_at       DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model addresses {
+  id          Int     @id @default(autoincrement())
+  adr_phone   String? @db.VarChar
+  adr_name    String? @db.VarChar
+  adr_address String? @db.VarChar
+  user_id     Int?
+  users       users?  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
