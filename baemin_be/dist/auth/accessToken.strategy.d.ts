@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-jwt';
 export type JwtPayload = {
-    sub: string;
+    sub: number;
     username: string;
 };
 declare const AccessTokenStrategy_base: new (...args: any[]) => Strategy;

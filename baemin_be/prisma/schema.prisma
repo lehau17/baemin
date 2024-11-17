@@ -60,16 +60,15 @@ model foods {
   food_ratings      food_ratings[]
   categories        categories?     @relation(fields: [cate_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   restaurants       restaurants?    @relation(fields: [res_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  foods_details     foods_details[]
+  foods_details     foods_details?
   order_details     order_details[]
 }
 
 model foods_details {
-  id         Int    @id @default(autoincrement())
-  food_id    Int?
-  food_price Float?
-  food_stock Int?
-  foods      foods? @relation(fields: [food_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id         Int   @id
+  food_price Float
+  food_stock Int
+  foods      foods @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_food")
 }
 
 model restaurant_ratings {

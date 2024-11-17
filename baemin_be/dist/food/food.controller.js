@@ -28,8 +28,8 @@ let FoodController = class FoodController {
     findAll(limit = 20, skip = 0, cursor) {
         return this.foodService.findAll({ limit, skip, cursor });
     }
-    searchFood(limit = 20, skip = 0, cursor, name) {
-        return this.foodService.findFood({ limit, skip, cursor, name });
+    searchFood(limit = 20, skip = 0, cursor, name, cate_id, c_time, from_price = 0, to_price) {
+        return this.foodService.findFood({ limit, skip, cursor, name, cate: +cate_id, c_time: +c_time, from_price: Number(from_price), to_price: Number(to_price) });
     }
     findOne(id) {
         return this.foodService.findOne(id);
@@ -66,8 +66,12 @@ __decorate([
     __param(1, (0, common_1.Query)('skip')),
     __param(2, (0, common_1.Query)('cursor')),
     __param(3, (0, common_1.Query)('name')),
+    __param(4, (0, common_1.Query)('cate_id')),
+    __param(5, (0, common_1.Query)('c_time')),
+    __param(6, (0, common_1.Query)('from_price')),
+    __param(7, (0, common_1.Query)('to_price')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, Number, String]),
+    __metadata("design:paramtypes", [Object, Object, Number, String, String, String, Object, String]),
     __metadata("design:returntype", void 0)
 ], FoodController.prototype, "searchFood", null);
 __decorate([

@@ -58,7 +58,7 @@ let OrdersService = class OrdersService {
         });
         const promiseArrayUpdateStock = data.cart_items.map((item) => this.prisma.foods_details.updateMany({
             where: {
-                food_id: item.food_id,
+                id: item.food_id,
             },
             data: {
                 food_stock: { decrement: item.quantity },

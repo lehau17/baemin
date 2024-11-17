@@ -10,7 +10,7 @@ export class OrdersService {
   constructor(
     private prisma: PrismaService,
     private cartService: CartsService,
-  ) {}
+  ) { }
 
   async create(data: CreateOrderDto, user_id: number) {
     const myCart: any = await this.cartService.findByUserId(user_id);
@@ -63,7 +63,7 @@ export class OrdersService {
     const promiseArrayUpdateStock = data.cart_items.map((item) =>
       this.prisma.foods_details.updateMany({
         where: {
-          food_id: item.food_id,
+          id: item.food_id,
         },
         data: {
           food_stock: { decrement: item.quantity },

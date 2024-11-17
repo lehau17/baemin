@@ -17,7 +17,13 @@ let FoodsDetailService = class FoodsDetailService {
         this.prisma = prisma;
     }
     async create(data) {
-        return this.prisma.foods_details.create({ data });
+        const { food_id, food_price, food_stock } = data;
+        return this.prisma.foods_details.create({
+            data: {
+                id: food_id,
+                food_price, food_stock,
+            }
+        });
     }
     async findAll(limit = 20, skip, cursor) {
         const options = {

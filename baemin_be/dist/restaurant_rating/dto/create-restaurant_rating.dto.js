@@ -15,28 +15,17 @@ class CreateRestaurantRatingDto {
 }
 exports.CreateRestaurantRatingDto = CreateRestaurantRatingDto;
 __decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateRestaurantRatingDto.prototype, "user_id", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], CreateRestaurantRatingDto.prototype, "res_id", void 0);
 __decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(1),
+    (0, class_validator_1.Max)(5),
     __metadata("design:type", Number)
 ], CreateRestaurantRatingDto.prototype, "res_rate_point", void 0);
 __decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateRestaurantRatingDto.prototype, "res_rate_comment", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateRestaurantRatingDto.prototype, "status", void 0);
 //# sourceMappingURL=create-restaurant_rating.dto.js.map

@@ -17,24 +17,37 @@ const common_1 = require("@nestjs/common");
 const restaurant_rating_service_1 = require("./restaurant_rating.service");
 const create_restaurant_rating_dto_1 = require("./dto/create-restaurant_rating.dto");
 const update_restaurant_rating_dto_1 = require("./dto/update-restaurant_rating.dto");
+const accessToken_guard_1 = require("../common/guard/accessToken.guard");
+const message_1 = require("../common/deco/message");
 let RestaurantRatingController = class RestaurantRatingController {
     constructor(restaurantRatingService) {
         this.restaurantRatingService = restaurantRatingService;
     }
-    create(createRestaurantRatingDto) {
-        return this.restaurantRatingService.create(createRestaurantRatingDto);
+    create(createRestaurantRatingDto, req) {
+        const { sub } = req.user;
+        return this.restaurantRatingService.create(createRestaurantRatingDto, sub);
     }
-    findAll(limit, skip, cursor) {
-        return this.restaurantRatingService.findAll(limit, skip, cursor);
+    findAll(limit = 20, skip = 0, cursor) {
+        return this.restaurantRatingService.findAll({ limit, skip, cursor });
+    }
+    findAllByRes(id, limit = 20, skip = 0, cursor) {
+        return this.restaurantRatingService.findAllByRes({
+            limit,
+            skip,
+            cursor,
+            id: +id
+        });
     }
     findOne(id) {
         return this.restaurantRatingService.findOne(id);
     }
-    update(id, updateRestaurantRatingDto) {
-        return this.restaurantRatingService.update(id, updateRestaurantRatingDto);
+    update(id, req, updateRestaurantRatingDto) {
+        const { sub } = req.user;
+        return this.restaurantRatingService.update(id, updateRestaurantRatingDto, sub);
     }
-    remove(id) {
-        return this.restaurantRatingService.remove(id);
+    remove(id, req) {
+        const { sub } = req.user;
+        return this.restaurantRatingService.remove(id, sub);
     }
     getRestaurantAverageRating(res_id) {
         return this.restaurantRatingService.getRestaurantAverageRating(res_id);
@@ -46,9 +59,12 @@ let RestaurantRatingController = class RestaurantRatingController {
 exports.RestaurantRatingController = RestaurantRatingController;
 __decorate([
     (0, common_1.Post)(),
+    (0, message_1.Message)("created restaurant rating"),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_restaurant_rating_dto_1.CreateRestaurantRatingDto]),
+    __metadata("design:paramtypes", [create_restaurant_rating_dto_1.CreateRestaurantRatingDto, Object]),
     __metadata("design:returntype", void 0)
 ], RestaurantRatingController.prototype, "create", null);
 __decorate([
@@ -57,9 +73,19 @@ __decorate([
     __param(1, (0, common_1.Query)('skip')),
     __param(2, (0, common_1.Query)('cursor')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number, Number]),
+    __metadata("design:paramtypes", [Object, Object, Number]),
     __metadata("design:returntype", void 0)
 ], RestaurantRatingController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)("/res/:id"),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)('skip')),
+    __param(3, (0, common_1.Query)('cursor')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, Object, Number]),
+    __metadata("design:returntype", void 0)
+], RestaurantRatingController.prototype, "findAllByRes", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -69,17 +95,21 @@ __decorate([
 ], RestaurantRatingController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_restaurant_rating_dto_1.UpdateRestaurantRatingDto]),
+    __metadata("design:paramtypes", [Number, Object, update_restaurant_rating_dto_1.UpdateRestaurantRatingDto]),
     __metadata("design:returntype", void 0)
 ], RestaurantRatingController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], RestaurantRatingController.prototype, "remove", null);
 __decorate([

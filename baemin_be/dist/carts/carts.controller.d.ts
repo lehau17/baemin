@@ -5,44 +5,44 @@ export declare class CartsController {
     constructor(cartsService: CartsService);
     create(req: any): Promise<{
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
     }>;
     findAll(req: any, limit: string, skip: string, cursor: string): Promise<{
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
     }>;
     getMyCart(req: any): Promise<{
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
     }>;
     findOne(req: any, id: number): Promise<{
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
     }>;
     update(req: any, id: number, data: Prisma.cartsUpdateInput): Promise<{
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
     }>;
     remove(req: any, id: number): Promise<{
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
     }>;
 }

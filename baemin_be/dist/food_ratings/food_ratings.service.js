@@ -17,7 +17,11 @@ let FoodRatingsService = class FoodRatingsService {
         this.prisma = prisma;
     }
     async create(data) {
-        return this.prisma.food_ratings.create({ data });
+        return this.prisma.food_ratings.create({
+            data: {
+                ...data, status: 1
+            }
+        });
     }
     async findAll(limit = 20, skip, cursor) {
         const options = {
@@ -44,8 +48,11 @@ let FoodRatingsService = class FoodRatingsService {
         });
     }
     async remove(id) {
-        return this.prisma.food_ratings.delete({
+        return this.prisma.food_ratings.update({
             where: { id },
+            data: {
+                status: 0
+            }
         });
     }
     async rateFood(user_id, food_id, food_rate_point, food_rate_comment) {

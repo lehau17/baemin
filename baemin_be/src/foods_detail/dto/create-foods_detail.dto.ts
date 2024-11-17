@@ -1,7 +1,6 @@
 import { IsInt, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateFoodsDetailDto {
-  @IsOptional()
   @IsInt()
   food_id?: number;
 

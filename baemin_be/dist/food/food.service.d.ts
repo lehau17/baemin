@@ -2,6 +2,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateFoodDto } from './dto/create-food.dto';
 import { RestaurantService } from 'src/restaurant/restaurant.service';
+import DataResponse from './dto/find_food.dto';
 export declare class FoodService {
     private prisma;
     private restaurantService;
@@ -62,30 +63,25 @@ export declare class FoodService {
         created_at: Date | null;
         updated_at: Date | null;
     }>;
-    findFood({ limit, skip, cursor, name, }: {
+    findFood({ limit, skip, cursor, name, cate, c_time, from_price, to_price, }: {
         limit?: number;
         skip?: number;
         cursor?: number;
         name?: string;
+        cate?: number;
+        c_time?: number;
+        from_price?: number;
+        to_price?: number;
     }): Promise<{
-        data: {
-            id: number;
-            res_id: number | null;
-            cate_id: number | null;
-            food_name: string | null;
-            food_description: string | null;
-            food_images: string | null;
-            food_total_like: number | null;
-            food_total_rating: number | null;
-            food_avg_rating: number | null;
-            status: number | null;
-            created_at: Date | null;
-            updated_at: Date | null;
-        }[];
+        data: DataResponse[];
         filter: {
             limit: number;
             skip: number;
             name: string;
+            cate: number;
+            c_time: number;
+            from_price: number;
+            to_price: number;
         };
         cursor: {
             prevCursor: number;

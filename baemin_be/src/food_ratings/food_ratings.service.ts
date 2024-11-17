@@ -4,10 +4,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FoodRatingsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(data: Prisma.food_ratingsCreateInput) {
-    return this.prisma.food_ratings.create({ data });
+    return this.prisma.food_ratings.create({
+      data: {
+        ...data, status: 1
+      }
+    });
   }
 
   async findAll(limit = 20, skip?: number, cursor?: number) {
@@ -39,8 +43,11 @@ export class FoodRatingsService {
   }
 
   async remove(id: number) {
-    return this.prisma.food_ratings.delete({
+    return this.prisma.food_ratings.update({
       where: { id },
+      data: {
+        status: 0
+      }
     });
   }
 
@@ -83,7 +90,7 @@ export class FoodRatingsService {
     const totalRatings = ratings.length;
     const averageRating = totalRatings
       ? ratings.reduce((sum, rating) => sum + rating.food_rate_point, 0) /
-        totalRatings
+      totalRatings
       : 0;
 
     return { food_id, totalRatings, averageRating };

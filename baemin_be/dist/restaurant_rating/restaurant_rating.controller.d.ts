@@ -4,7 +4,7 @@ import { UpdateRestaurantRatingDto } from './dto/update-restaurant_rating.dto';
 export declare class RestaurantRatingController {
     private readonly restaurantRatingService;
     constructor(restaurantRatingService: RestaurantRatingService);
-    create(createRestaurantRatingDto: CreateRestaurantRatingDto): Promise<{
+    create(createRestaurantRatingDto: CreateRestaurantRatingDto, req: Express.Request): Promise<{
         id: number;
         status: number | null;
         created_at: Date | null;
@@ -14,7 +14,7 @@ export declare class RestaurantRatingController {
         res_rate_comment: string | null;
         res_id: number | null;
     }>;
-    findAll(limit: number, skip?: number, cursor?: number): Promise<{
+    findAll(limit?: number, skip?: number, cursor?: number): Promise<{
         id: number;
         status: number | null;
         created_at: Date | null;
@@ -24,6 +24,27 @@ export declare class RestaurantRatingController {
         res_rate_comment: string | null;
         res_id: number | null;
     }[]>;
+    findAllByRes(id: string, limit?: number, skip?: number, cursor?: number): Promise<{
+        data: {
+            id: number;
+            status: number | null;
+            created_at: Date | null;
+            updated_at: Date | null;
+            user_id: number | null;
+            res_rate_point: number | null;
+            res_rate_comment: string | null;
+            res_id: number | null;
+        }[];
+        filter: {
+            limit: number;
+            skip: number;
+            name: void;
+        };
+        cursor: {
+            prevCursor: number;
+            nextCursor: number;
+        };
+    }>;
     findOne(id: number): Promise<{
         id: number;
         status: number | null;
@@ -34,7 +55,7 @@ export declare class RestaurantRatingController {
         res_rate_comment: string | null;
         res_id: number | null;
     }>;
-    update(id: number, updateRestaurantRatingDto: UpdateRestaurantRatingDto): Promise<{
+    update(id: number, req: Express.Request, updateRestaurantRatingDto: UpdateRestaurantRatingDto): Promise<{
         id: number;
         status: number | null;
         created_at: Date | null;
@@ -44,7 +65,7 @@ export declare class RestaurantRatingController {
         res_rate_comment: string | null;
         res_id: number | null;
     }>;
-    remove(id: number): Promise<{
+    remove(id: number, req: Express.Request): Promise<{
         id: number;
         status: number | null;
         created_at: Date | null;

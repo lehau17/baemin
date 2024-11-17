@@ -6,8 +6,10 @@ export declare class RefreshTokenStrategy extends RefreshTokenStrategy_base {
     constructor();
     validate(req: Request, payload: JwtPayload): {
         refreshToken: string;
-        sub: string;
+        sub: number;
         username: string;
+        iat: number;
+        exp: number;
     };
 }
 export {};

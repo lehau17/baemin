@@ -1,23 +1,18 @@
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsDecimal, IsInt, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 
 export class CreateRestaurantRatingDto {
-  @IsOptional()
-  @IsInt()
-  user_id?: number;
 
-  @IsOptional()
-  @IsInt()
-  res_id?: number;
 
-  @IsOptional()
   @IsInt()
-  res_rate_point?: number;
+  res_id: number;
 
-  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Max(5)
+  res_rate_point: number;
+
   @IsString()
-  res_rate_comment?: string;
+  res_rate_comment: string;
 
-  @IsOptional()
-  @IsInt()
-  status?: number;
+
 }

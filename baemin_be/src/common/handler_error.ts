@@ -15,7 +15,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     response.status(status).json({
       statusCode: status,
       timestamp: new Date().toISOString(),
-      message: exception.message,
+      message: status == 500 ? "Server loi roi may dua oi" : exception.message,
     });
   }
 }

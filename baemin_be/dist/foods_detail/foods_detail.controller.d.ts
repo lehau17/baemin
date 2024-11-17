@@ -6,32 +6,27 @@ export declare class FoodsDetailController {
     constructor(foodsDetailService: FoodsDetailService);
     create(createFoodsDetailDto: CreateFoodsDetailDto): Promise<{
         id: number;
-        food_id: number | null;
-        food_price: number | null;
-        food_stock: number | null;
+        food_price: number;
+        food_stock: number;
     }>;
     findAll(limit: number, skip?: number, cursor?: number): Promise<{
         id: number;
-        food_id: number | null;
-        food_price: number | null;
-        food_stock: number | null;
+        food_price: number;
+        food_stock: number;
     }[]>;
     findOne(id: number): Promise<{
         id: number;
-        food_id: number | null;
-        food_price: number | null;
-        food_stock: number | null;
+        food_price: number;
+        food_stock: number;
     }>;
     update(id: number, updateFoodsDetailDto: UpdateFoodsDetailDto): Promise<{
         id: number;
-        food_id: number | null;
-        food_price: number | null;
-        food_stock: number | null;
+        food_price: number;
+        food_stock: number;
     }>;
     remove(id: number): Promise<{
         id: number;
-        food_id: number | null;
-        food_price: number | null;
-        food_stock: number | null;
+        food_price: number;
+        food_stock: number;
     }>;
 }

@@ -6,10 +6,10 @@ export declare class OrdersController {
     constructor(ordersService: OrdersService);
     create(data: CreateOrderDto, req: any): Promise<{
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
         total_amount: number;
         total_price: number;
         voucher_used: Prisma.JsonValue | null;
@@ -21,18 +21,18 @@ export declare class OrdersController {
             status: number | null;
             created_at: Date | null;
             updated_at: Date | null;
-            total_price: number;
-            order_id: number | null;
             food_id: number | null;
+            total_price: number;
             quantity: number | null;
             price: number;
+            order_id: number | null;
         }[];
     } & {
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
         total_amount: number;
         total_price: number;
         voucher_used: Prisma.JsonValue | null;
@@ -44,18 +44,18 @@ export declare class OrdersController {
             status: number | null;
             created_at: Date | null;
             updated_at: Date | null;
-            total_price: number;
-            order_id: number | null;
             food_id: number | null;
+            total_price: number;
             quantity: number | null;
             price: number;
+            order_id: number | null;
         }[];
     } & {
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
         total_amount: number;
         total_price: number;
         voucher_used: Prisma.JsonValue | null;
@@ -63,10 +63,10 @@ export declare class OrdersController {
     }>;
     update(id: number, data: Prisma.ordersUpdateInput): Promise<{
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
         total_amount: number;
         total_price: number;
         voucher_used: Prisma.JsonValue | null;
@@ -74,10 +74,10 @@ export declare class OrdersController {
     }>;
     remove(id: number): Promise<{
         id: number;
-        user_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
         total_amount: number;
         total_price: number;
         voucher_used: Prisma.JsonValue | null;

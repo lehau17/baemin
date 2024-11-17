@@ -15,7 +15,6 @@ class CreateFoodsDetailDto {
 }
 exports.CreateFoodsDetailDto = CreateFoodsDetailDto;
 __decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], CreateFoodsDetailDto.prototype, "food_id", void 0);
