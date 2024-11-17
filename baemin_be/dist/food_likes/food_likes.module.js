@@ -11,13 +11,15 @@ const common_1 = require("@nestjs/common");
 const food_likes_service_1 = require("./food_likes.service");
 const food_likes_controller_1 = require("./food_likes.controller");
 const prisma_service_1 = require("../prisma/prisma.service");
+const food_service_1 = require("../food/food.service");
+const restaurant_service_1 = require("../restaurant/restaurant.service");
 let FoodLikesModule = class FoodLikesModule {
 };
 exports.FoodLikesModule = FoodLikesModule;
 exports.FoodLikesModule = FoodLikesModule = __decorate([
     (0, common_1.Module)({
         controllers: [food_likes_controller_1.FoodLikesController],
-        providers: [food_likes_service_1.FoodLikesService, prisma_service_1.PrismaService],
+        providers: [food_likes_service_1.FoodLikesService, prisma_service_1.PrismaService, food_service_1.FoodService, restaurant_service_1.RestaurantService],
     })
 ], FoodLikesModule);
 //# sourceMappingURL=food_likes.module.js.map

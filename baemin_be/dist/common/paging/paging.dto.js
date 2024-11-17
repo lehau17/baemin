@@ -28,5 +28,11 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], PaginationDto.prototype, "offset", void 0);
+], PaginationDto.prototype, "skip", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Type)(() => Number),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", Number)
+], PaginationDto.prototype, "cursor", void 0);
 //# sourceMappingURL=paging.dto.js.map

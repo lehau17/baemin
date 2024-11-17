@@ -194,7 +194,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/foods/search?name=g",
+							"raw": "http://localhost:3000/foods/search?name=g&c_time=1&from_price=3000",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -208,6 +208,14 @@
 								{
 									"key": "name",
 									"value": "g"
+								},
+								{
+									"key": "c_time",
+									"value": "1"
+								},
+								{
+									"key": "from_price",
+									"value": "3000"
 								}
 							]
 						}
@@ -600,6 +608,430 @@
 							"port": "3000",
 							"path": [
 								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "restaurant_rating",
+			"item": [
+				{
+					"name": "create ré rating",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"res_id\" : 1, \r\n    \"res_rate_point\" : 4.5,\r\n    \"res_rate_comment\" : \"do an ngon\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/restaurant-ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"restaurant-ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove rating",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/restaurant-ratings/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"restaurant-ratings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update rating",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"res_rate_point\" : 4, // 1 toi 5\r\n    \"res_rate_comment\" : \"Update comment\"\r\n}\r\n// PATCH : chuyền gì update đóa     ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/restaurant-ratings/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"restaurant-ratings",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get list rating",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/restaurant-ratings/res/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"restaurant-ratings",
+								"res",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsInVzZXJuYW1lIjoiaGF1MTIzNEBnbWFpbC5jb20iLCJpYXQiOjE3MzE3NDE3OTEsImV4cCI6MTczMzAzNzc5MX0.DNg4rS2Gy2aBMNKu-9vmrxl7_23iqen6ZT41l_LKPj8",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "food_ratings",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsInVzZXJuYW1lIjoiaGF1MTIzNEBnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjY1NTYsImV4cCI6MTczMjkyMjU1Nn0.Yxw7aoTpinZj8nfQrNLXrrA54GjDgsKPPrzvyoQwDfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"food_id\" : 2,\r\n    \"food_rate_point\" : 4,\r\n    \"food_rate_comment\" : \"day la comment cua food rating\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/food-ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"food-ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsInVzZXJuYW1lIjoiaGF1MTIzNEBnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjY1NTYsImV4cCI6MTczMjkyMjU1Nn0.Yxw7aoTpinZj8nfQrNLXrrA54GjDgsKPPrzvyoQwDfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/food-ratings/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"food-ratings",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsInVzZXJuYW1lIjoiaGF1MTIzNEBnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjY1NTYsImV4cCI6MTczMjkyMjU1Nn0.Yxw7aoTpinZj8nfQrNLXrrA54GjDgsKPPrzvyoQwDfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"food_rate_point\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/food-ratings/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"food-ratings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user rating",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/food-ratings/user/:user_id/ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"food-ratings",
+								"user",
+								":user_id",
+								"ratings"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get list rating me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsInVzZXJuYW1lIjoiaGF1MTIzNEBnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjY1NTYsImV4cCI6MTczMjkyMjU1Nn0.Yxw7aoTpinZj8nfQrNLXrrA54GjDgsKPPrzvyoQwDfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/food-ratings/me/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"food-ratings",
+								"me",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "food_likes",
+			"item": [
+				{
+					"name": "toggle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsInVzZXJuYW1lIjoiaGF1MTIzNEBnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjY1NTYsImV4cCI6MTczMjkyMjU1Nn0.Yxw7aoTpinZj8nfQrNLXrrA54GjDgsKPPrzvyoQwDfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/food-likes/food/:id/toggle",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"food-likes",
+								"food",
+								":id",
+								"toggle"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list food user liked",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsInVzZXJuYW1lIjoiaGF1MTIzNEBnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjY1NTYsImV4cCI6MTczMjkyMjU1Nn0.Yxw7aoTpinZj8nfQrNLXrrA54GjDgsKPPrzvyoQwDfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/food-likes/user/:user_id/liked-foods",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"food-likes",
+								"user",
+								":user_id",
+								"liked-foods"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list user like food",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsInVzZXJuYW1lIjoiaGF1MTIzNEBnbWFpbC5jb20iLCJpYXQiOjE3MzE2MjY1NTYsImV4cCI6MTczMjkyMjU1Nn0.Yxw7aoTpinZj8nfQrNLXrrA54GjDgsKPPrzvyoQwDfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/food-likes/food/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"food-likes",
+								"food",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
 							]
 						}
 					},

@@ -137,6 +137,27 @@ let FoodService = class FoodService {
             data,
         });
     }
+    async incLike(id) {
+        this.prisma.$executeRaw `UPDATE foods
+      SET food_total_like = food_total_like + 1
+      WHERE id = ${id}; `;
+    }
+    async desLike(id) {
+        this.prisma.$executeRaw `UPDATE foods
+      SET food_total_like = food_total_like -1
+      WHERE id = ${id} and food_total_like > 0`;
+    }
+    async incTotalRating(id) {
+        const data = await this.prisma.$executeRaw `UPDATE foods
+      SET food_total_rating = food_total_rating + 1
+      WHERE id = ${id}; `;
+        return data;
+    }
+    async desTotalRating(id) {
+        await this.prisma.$executeRaw `UPDATE foods
+      SET food_total_rating = food_total_rating -1
+      WHERE id = ${id} and food_total_rating > 0`;
+    }
     async remove(id) {
         return this.prisma.foods.update({
             where: { id },

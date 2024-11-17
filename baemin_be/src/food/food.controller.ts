@@ -43,7 +43,7 @@ export class FoodController {
     @Query('name') name?: string,
     @Query('cate_id') cate_id?: string,
     @Query('c_time') c_time?: string, @Query('from_price') from_price = 0,
-    @Query('to_price') to_price?: string, // 1: mới nhất, 2. cũ nhất, 0 : kệ nó
+    @Query('to_price') to_price?: string,
     // 1: mới nhất, 2. cũ , 0 : kệ nó
   ) {
     return this.foodService.findFood({ limit, skip, cursor, name, cate: +cate_id, c_time: +c_time, from_price: Number(from_price), to_price: Number(to_price) });

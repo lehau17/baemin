@@ -102,6 +102,10 @@ export declare class FoodService {
         created_at: Date | null;
         updated_at: Date | null;
     }>;
+    incLike(id: number): Promise<void>;
+    desLike(id: number): Promise<void>;
+    incTotalRating(id: number): Promise<number>;
+    desTotalRating(id: number): Promise<void>;
     remove(id: number): Promise<{
         id: number;
         res_id: number | null;

@@ -10,18 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FoodRatingsService = void 0;
+const food_service_1 = require("./../food/food.service");
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 let FoodRatingsService = class FoodRatingsService {
-    constructor(prisma) {
+    constructor(prisma, foodService) {
         this.prisma = prisma;
+        this.foodService = foodService;
     }
-    async create(data) {
-        return this.prisma.food_ratings.create({
-            data: {
-                ...data, status: 1
-            }
-        });
+    async create({ food_id, food_rate_point, food_rate_comment }, user_id) {
+        const foundFood = await this.foodService.findOne(food_id);
+        if (!foundFood || foundFood.status != 1)
+            throw new common_1.BadRequestException(`Food not found`);
+        const [data, test] = await Promise.all([this.prisma.food_ratings.create({
+                data: {
+                    foods: { connect: { id: food_id } }, food_rate_point, food_rate_comment, status: 1,
+                    users: {
+                        connect: { id: user_id }
+                    }
+                }
+            }), await this.foodService.incTotalRating(food_id)]);
+        console.log(test);
+        return data;
     }
     async findAll(limit = 20, skip, cursor) {
         const options = {
@@ -41,19 +51,29 @@ let FoodRatingsService = class FoodRatingsService {
             where: { id },
         });
     }
-    async update(id, data) {
+    async update(id, data, user_id) {
+        const foundRating = await this.findOne(id);
+        if (!foundRating || foundRating.status != 1) {
+            throw new common_1.BadRequestException(`cannot update`);
+        }
+        if (foundRating.user_id !== user_id)
+            throw new common_1.ForbiddenException('cannot update');
         return this.prisma.food_ratings.update({
             where: { id },
             data,
         });
     }
-    async remove(id) {
-        return this.prisma.food_ratings.update({
-            where: { id },
-            data: {
-                status: 0
-            }
-        });
+    async remove(id, user_id) {
+        const foundRating = await this.prisma.food_ratings.findFirst({ where: { id } });
+        if (!foundRating) {
+            throw new common_1.BadRequestException(`food_rating not found`);
+        }
+        if (foundRating.user_id !== user_id)
+            throw new common_1.ForbiddenException('cannot delete');
+        const [data,] = await Promise.all([await this.prisma.food_ratings.delete({
+                where: { id: foundRating.id },
+            }), await this.foodService.desTotalRating(foundRating.food_id)]);
+        return data;
     }
     async rateFood(user_id, food_id, food_rate_point, food_rate_comment) {
         const existingRating = await this.prisma.food_ratings.findFirst({
@@ -89,11 +109,25 @@ let FoodRatingsService = class FoodRatingsService {
             : 0;
         return { food_id, totalRatings, averageRating };
     }
-    async getUserRatings(user_id) {
-        return this.prisma.food_ratings.findMany({
+    async getUserRatings(user_id, { cursor, limit, skip }) {
+        const options = {
             where: { user_id, status: 1 },
+            take: limit,
+            skip: (cursor ? 1 : skip),
             include: { foods: true },
-        });
+            cursor: (cursor ? { id: cursor } : undefined),
+        };
+        const data = await this.prisma.food_ratings.findMany(options);
+        return {
+            data,
+            filter: {
+                cursor, limit, skip
+            },
+            cursor: {
+                prevCursor: cursor,
+                nextCursor: (data.length > limit ? data[length - 1].id : undefined)
+            }
+        };
     }
     async getFoodRatings(food_id) {
         return this.prisma.food_ratings.findMany({
@@ -105,6 +139,6 @@ let FoodRatingsService = class FoodRatingsService {
 exports.FoodRatingsService = FoodRatingsService;
 exports.FoodRatingsService = FoodRatingsService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService, food_service_1.FoodService])
 ], FoodRatingsService);
 //# sourceMappingURL=food_ratings.service.js.map

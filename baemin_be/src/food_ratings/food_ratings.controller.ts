@@ -7,18 +7,28 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
+  Req
 } from '@nestjs/common';
+import { Express } from 'express';
 import { FoodRatingsService } from './food_ratings.service';
 import { CreateFoodRatingDto } from './dto/create-food_rating.dto';
 import { UpdateFoodRatingDto } from './dto/update-food_rating.dto';
+import { AccessTokenGuard } from 'src/common/guard/accessToken.guard';
+import { JwtPayload } from 'src/common/stategy/accessToken.strategy';
+import { PaginationDto } from 'src/common/paging/paging.dto';
+import { Message } from 'src/common/deco/message';
 
 @Controller('food-ratings')
 export class FoodRatingsController {
-  constructor(private readonly foodRatingsService: FoodRatingsService) {}
+  constructor(private readonly foodRatingsService: FoodRatingsService) { }
 
   @Post()
-  create(@Body() createFoodRatingDto: CreateFoodRatingDto) {
-    return this.foodRatingsService.create(createFoodRatingDto);
+  @UseGuards(AccessTokenGuard)
+  @Message("Added food ratings")
+  create(@Body() createFoodRatingDto: CreateFoodRatingDto, @Req() req: Express.Request) {
+    const { sub } = req.user as JwtPayload
+    return this.foodRatingsService.create(createFoodRatingDto, sub);
   }
 
   @Get()
@@ -36,31 +46,36 @@ export class FoodRatingsController {
   }
 
   @Patch(':id')
+  @UseGuards(AccessTokenGuard)
   update(
     @Param('id') id: number,
     @Body() updateFoodRatingDto: UpdateFoodRatingDto,
+    @Req() req: Express.Request
   ) {
-    return this.foodRatingsService.update(id, updateFoodRatingDto);
+    const { sub } = req.user as JwtPayload
+    return this.foodRatingsService.update(id, updateFoodRatingDto, sub);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.foodRatingsService.remove(id);
+  @UseGuards(AccessTokenGuard)
+  remove(@Param('id') id: number, @Req() req: Express.Request) {
+    const { sub } = req.user as JwtPayload
+    return this.foodRatingsService.remove(id, sub);
   }
 
-  // Additional API endpoints
   @Post('rate')
   rateFood(
     @Body()
     {
-      user_id,
       food_id,
       food_rate_point,
       food_rate_comment,
     }: CreateFoodRatingDto,
+    @Req() req: Express.Request
   ) {
+    const { sub } = req.user as JwtPayload
     return this.foodRatingsService.rateFood(
-      user_id,
+      sub,
       food_id,
       food_rate_point,
       food_rate_comment,
@@ -73,8 +88,15 @@ export class FoodRatingsController {
   }
 
   @Get('user/:user_id/ratings')
-  getUserRatings(@Param('user_id') user_id: number) {
-    return this.foodRatingsService.getUserRatings(user_id);
+  getUserRatings(@Param('user_id') user_id: number, @Query() { cursor, limit = 20, skip = 0 }: PaginationDto) {
+    return this.foodRatingsService.getUserRatings(user_id, { limit, skip, cursor });
+  }
+
+  @Get('/me/list')
+  @UseGuards(AccessTokenGuard)
+  getRatingOfMe(@Query() { cursor, limit = 20, skip = 0 }: PaginationDto, @Req() req: Express.Request) {
+    const { sub } = req.user as JwtPayload
+    return this.foodRatingsService.getUserRatings(sub, { limit, skip, cursor });
   }
 
   @Get('food/:food_id/ratings')

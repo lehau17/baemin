@@ -18,7 +18,7 @@ exports.FoodModule = FoodModule;
 exports.FoodModule = FoodModule = __decorate([
     (0, common_1.Module)({
         controllers: [food_controller_1.FoodController],
-        providers: [food_service_1.FoodService, prisma_service_1.PrismaService, restaurant_service_1.RestaurantService],
+        providers: [food_service_1.FoodService, prisma_service_1.PrismaService, restaurant_service_1.RestaurantService, food_service_1.FoodService],
     })
 ], FoodModule);
 //# sourceMappingURL=food.module.js.map

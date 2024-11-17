@@ -15,18 +15,7 @@ class CreateFoodLikeDto {
 }
 exports.CreateFoodLikeDto = CreateFoodLikeDto;
 __decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateFoodLikeDto.prototype, "user_id", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], CreateFoodLikeDto.prototype, "food_id", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateFoodLikeDto.prototype, "status", void 0);
 //# sourceMappingURL=create-food_like.dto.js.map

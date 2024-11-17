@@ -17,10 +17,6 @@ exports.CreateFoodRatingDto = CreateFoodRatingDto;
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
-], CreateFoodRatingDto.prototype, "user_id", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
 ], CreateFoodRatingDto.prototype, "food_id", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
@@ -32,9 +28,4 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateFoodRatingDto.prototype, "food_rate_comment", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateFoodRatingDto.prototype, "status", void 0);
 //# sourceMappingURL=create-food_rating.dto.js.map

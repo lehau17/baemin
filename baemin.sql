@@ -118,21 +118,20 @@ CREATE TABLE "public"."foods" (
     "food_avg_rating" int4 DEFAULT 0,
     "status" int4 DEFAULT 1,
     "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" timestamp DEFAULT CURRENT_TIMESTAMP
+    "updated_at" timestamp DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "foods_res_id_fkey" FOREIGN KEY ("res_id") REFERENCES "public"."restaurants"("id"),
+    CONSTRAINT "foods_cate_id_fkey" FOREIGN KEY ("cate_id") REFERENCES "public"."categories"("id"),
+    PRIMARY KEY ("id")
 );
 
 DROP TABLE IF EXISTS "public"."foods_details";
 -- This script only contains the table creation statements and does not fully represent the table in database. It's still missing: indices, triggers. Do not use it as backup.
 
--- Squences
-CREATE SEQUENCE IF NOT EXISTS foods_details_id_seq
-
 -- Table Definition
 CREATE TABLE "public"."foods_details" (
-    "id" int4 NOT NULL DEFAULT nextval('foods_details_id_seq'::regclass),
-    "food_id" int4,
-    "food_price" float8,
-    "food_stock" int4
+    "id" int4 NOT NULL,
+    "food_price" float8 NOT NULL,
+    "food_stock" int4 NOT NULL
 );
 
 DROP TABLE IF EXISTS "public"."order_details";
@@ -230,8 +229,7 @@ CREATE TABLE "public"."users" (
     "usr_email" varchar,
     "status" int4,
     "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" timestamp DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY ("id")
+    "updated_at" timestamp DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS "public"."vouchers";
@@ -278,23 +276,36 @@ INSERT INTO "public"."categories" ("id", "cate_name", "cate_description", "cate_
 (4, 'Món Ăn Truyền Thống', 'Những món cơm đặc trưng và truyền thống của các vùng miền.', 'https://picsum.photos/200/200?random=4', NULL, '2024-11-14 09:53:27.366673', '2024-11-14 09:53:27.366673'),
 (5, 'Cơm Chay', 'Các món ăn chay, thích hợp cho người ăn chay hoặc muốn giảm thiểu thịt.', 'https://picsum.photos/200/200?random=5', NULL, '2024-11-14 09:53:27.366673', '2024-11-14 09:53:27.366673');
 
+INSERT INTO "public"."food_likes" ("id", "user_id", "food_id", "status", "created_at", "updated_at") VALUES
+(3, 4, 1, 1, '2024-11-17 09:30:01.419', '2024-11-17 09:30:01.419');
 
 
+INSERT INTO "public"."food_ratings" ("id", "user_id", "food_id", "food_rate_point", "food_rate_comment", "status", "created_at", "updated_at") VALUES
+(1, 4, 2, 3, 'day la comment cua food rating', 1, '2024-11-17 06:36:41.501', '2024-11-17 06:36:41.501');
+INSERT INTO "public"."food_ratings" ("id", "user_id", "food_id", "food_rate_point", "food_rate_comment", "status", "created_at", "updated_at") VALUES
+(2, 4, 2, 4, 'day la comment cua food rating', 1, '2024-11-17 07:46:35.767', '2024-11-17 07:46:35.767');
+INSERT INTO "public"."food_ratings" ("id", "user_id", "food_id", "food_rate_point", "food_rate_comment", "status", "created_at", "updated_at") VALUES
+(3, 4, 2, 4, 'day la comment cua food rating', 1, '2024-11-17 07:46:37.019', '2024-11-17 07:46:37.019');
+INSERT INTO "public"."food_ratings" ("id", "user_id", "food_id", "food_rate_point", "food_rate_comment", "status", "created_at", "updated_at") VALUES
+(4, 4, 2, 4, 'day la comment cua food rating', 1, '2024-11-17 07:46:38.101', '2024-11-17 07:46:38.101'),
+(7, 4, 2, 4, 'day la comment cua food rating', 1, '2024-11-17 07:47:40.934', '2024-11-17 07:47:40.934'),
+(8, 4, 2, 4, 'day la comment cua food rating', 1, '2024-11-17 07:47:42.014', '2024-11-17 07:47:42.014'),
+(9, 4, 2, 4, 'day la comment cua food rating', 1, '2024-11-17 07:49:40.36', '2024-11-17 07:49:40.36'),
+(10, 4, 2, 4, 'day la comment cua food rating', 1, '2024-11-17 07:49:47.14', '2024-11-17 07:49:47.14');
 
-
-INSERT INTO "public"."foods" ("id", "res_id", "cate_id", "food_name", "food_description", "food_images", "food_total_like", "food_total_rating", "food_avg_rating", "status", "created_at", "updated_at") VALUES
-(2, NULL, 1, 'Gà rán mún ớt', NULL, 'https://picsum.photos/id/237/200/300', 0, 0, 0, 1, '2024-11-14 13:54:54.525', '2024-11-14 13:54:54.525');
 INSERT INTO "public"."foods" ("id", "res_id", "cate_id", "food_name", "food_description", "food_images", "food_total_like", "food_total_rating", "food_avg_rating", "status", "created_at", "updated_at") VALUES
 (3, 1, 1, 'Gà rán mún ớt', NULL, 'https://picsum.photos/id/237/200/300', 0, 0, 0, 1, '2024-11-14 13:55:36.257', '2024-11-14 13:55:36.257');
 INSERT INTO "public"."foods" ("id", "res_id", "cate_id", "food_name", "food_description", "food_images", "food_total_like", "food_total_rating", "food_avg_rating", "status", "created_at", "updated_at") VALUES
-(1, NULL, 1, 'Bán nước mía cybersoft', NULL, 'https://picsum.photos/id/237/200/300', NULL, NULL, NULL, 0, '2024-11-14 10:11:55.879', '2024-11-14 10:11:55.879');
+(1, 1, 1, 'Bán nước mía cybersoft', NULL, 'https://picsum.photos/id/237/200/300', 0, 0, 0, 0, '2024-11-14 10:11:55.879', '2024-11-14 10:11:55.879');
+INSERT INTO "public"."foods" ("id", "res_id", "cate_id", "food_name", "food_description", "food_images", "food_total_like", "food_total_rating", "food_avg_rating", "status", "created_at", "updated_at") VALUES
+(2, NULL, 1, 'Gà rán mún ớt', NULL, 'https://picsum.photos/id/237/200/300', 0, 0, 0, 1, '2024-11-14 13:54:54.525', '2024-11-14 13:54:54.525');
 
-INSERT INTO "public"."foods_details" ("id", "food_id", "food_price", "food_stock") VALUES
-(2, 2, 2000, 50);
-INSERT INTO "public"."foods_details" ("id", "food_id", "food_price", "food_stock") VALUES
-(3, 3, 2000, 50);
-INSERT INTO "public"."foods_details" ("id", "food_id", "food_price", "food_stock") VALUES
-(1, 1, 2000, -50);
+INSERT INTO "public"."foods_details" ("id", "food_price", "food_stock") VALUES
+(1, 20000, 40);
+INSERT INTO "public"."foods_details" ("id", "food_price", "food_stock") VALUES
+(2, 20000, 40);
+INSERT INTO "public"."foods_details" ("id", "food_price", "food_stock") VALUES
+(3, 20000, 40);
 
 INSERT INTO "public"."order_details" ("id", "order_id", "food_id", "quantity", "price", "total_price", "status", "created_at", "updated_at") VALUES
 (1, 3, 1, 20, 2000, 40000, 1, '2024-11-14 23:09:28.978', '2024-11-14 23:09:28.978');
@@ -322,7 +333,15 @@ INSERT INTO "public"."orders" ("id", "user_id", "total_amount", "total_price", "
 (8, 4, 20, 40000, '[]', 1, '2024-11-14 23:31:03.803', '2024-11-14 23:31:03.803', NULL),
 (9, 4, 20, 40000, '[]', 1, '2024-11-14 23:31:39.578', '2024-11-14 23:31:39.578', '{"city": "haule"}');
 
-
+INSERT INTO "public"."restaurant_ratings" ("id", "user_id", "res_id", "res_rate_point", "res_rate_comment", "status", "created_at", "updated_at") VALUES
+(2, 4, 1, 4, 'do an ngon', 1, '2024-11-16 07:28:55.813', '2024-11-16 07:28:55.813');
+INSERT INTO "public"."restaurant_ratings" ("id", "user_id", "res_id", "res_rate_point", "res_rate_comment", "status", "created_at", "updated_at") VALUES
+(3, 4, 1, 4, 'do an ngon', 1, '2024-11-16 07:33:24.223', '2024-11-16 07:33:24.223');
+INSERT INTO "public"."restaurant_ratings" ("id", "user_id", "res_id", "res_rate_point", "res_rate_comment", "status", "created_at", "updated_at") VALUES
+(4, 4, 1, 4, 'do an ngon', 1, '2024-11-16 07:36:41.951', '2024-11-16 07:36:41.951');
+INSERT INTO "public"."restaurant_ratings" ("id", "user_id", "res_id", "res_rate_point", "res_rate_comment", "status", "created_at", "updated_at") VALUES
+(6, 4, 1, 4, 'do an ngon', 1, '2024-11-16 07:37:08.32', '2024-11-16 07:37:08.32'),
+(5, 4, 1, 4, 'Update comment', 1, '2024-11-16 07:36:44.562', '2024-11-16 07:36:44.562');
 
 INSERT INTO "public"."restaurants" ("id", "user_id", "res_name", "res_address", "res_avg_rating", "res_time_start", "res_time_end", "res_total_rating", "status", "created_at", "updated_at", "res_description") VALUES
 (1, NULL, 'Nhà hàng gà rán cybersort', '{"city": "HCM", "street": "Dien bien phu tren khong", "address": 1}', 4.5, '10.00', '22.00', 0, 1, '2024-11-14 13:15:07.211', '2024-11-14 13:15:07.211', NULL);

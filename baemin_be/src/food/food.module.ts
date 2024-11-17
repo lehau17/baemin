@@ -6,6 +6,6 @@ import { RestaurantService } from 'src/restaurant/restaurant.service';
 
 @Module({
   controllers: [FoodController],
-  providers: [FoodService, PrismaService, RestaurantService],
+  providers: [FoodService, PrismaService, RestaurantService, FoodService],
 })
-export class FoodModule {}
+export class FoodModule { }

@@ -1,4 +1,5 @@
 export declare class PaginationDto {
     limit?: number;
-    offset?: number;
+    skip?: number;
+    cursor?: number;
 }

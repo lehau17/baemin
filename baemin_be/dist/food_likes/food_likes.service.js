@@ -12,12 +12,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FoodLikesService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const food_service_1 = require("../food/food.service");
 let FoodLikesService = class FoodLikesService {
-    constructor(prisma) {
+    constructor(prisma, foodService) {
         this.prisma = prisma;
+        this.foodService = foodService;
     }
-    async create(data) {
-        return this.prisma.food_likes.create({ data });
+    async create(data, sub) {
+        const foundFood = await this.foodService.findOne(data.food_id);
+        if (!foundFood || foundFood.status != 1)
+            throw new common_1.BadRequestException('food not found');
+        const [newLike,] = await Promise.all([await this.prisma.food_likes.create({
+                data: {
+                    users: {
+                        connect: {
+                            id: sub
+                        }
+                    },
+                    foods: {
+                        connect: {
+                            id: foundFood.id
+                        }
+                    }
+                }
+            })]);
+        return newLike;
     }
     async findAll(limit = 20, skip, cursor) {
         const options = {
@@ -43,24 +62,36 @@ let FoodLikesService = class FoodLikesService {
             data,
         });
     }
-    async remove(id) {
-        return this.prisma.food_likes.delete({
-            where: { id },
+    async remove(id, user_id) {
+        const foundLike = await this.prisma.food_likes.findFirst({
+            where: {
+                id
+            }
         });
+        if (!foundLike)
+            throw new common_1.BadRequestException("food_likes not found");
+        if (foundLike.user_id != user_id)
+            throw new common_1.ForbiddenException('not allowed');
+        const [data,] = await Promise.all([await this.prisma.food_likes.delete({
+                where: { id },
+            }), await this.foodService.desLike(foundLike.food_id)]);
+        return data;
     }
     async toggleLike(user_id, food_id) {
         const existingLike = await this.prisma.food_likes.findFirst({
             where: { user_id, food_id },
         });
         if (existingLike) {
-            await this.prisma.food_likes.delete({ where: { id: existingLike.id } });
-            return { message: 'Unliked' };
+            await Promise.all([await this.prisma.food_likes.delete({ where: { id: existingLike.id } }),
+                await this.foodService.desLike(existingLike.food_id)]);
+            return { isDeleted: true };
         }
         else {
-            await this.prisma.food_likes.create({
-                data: { user_id, food_id, status: 1 },
-            });
-            return { message: 'Liked' };
+            await Promise.all([await this.prisma.food_likes.create({
+                    data: { user_id, food_id, status: 1 },
+                }),
+                await this.foodService.incLike(food_id)]);
+            return { isCreated: true };
         }
     }
     async getUserLikedFoods(user_id) {
@@ -69,10 +100,28 @@ let FoodLikesService = class FoodLikesService {
             include: { foods: true },
         });
     }
+    async listUserLiked(food_id) {
+        return this.prisma.food_likes.findMany({
+            where: {
+                food_id: food_id,
+            },
+            select: {
+                id: true,
+                users: {
+                    select: {
+                        id: true,
+                        usr_email: true,
+                        usr_first_name: true,
+                        usr_last_name: true,
+                    },
+                },
+            },
+        });
+    }
 };
 exports.FoodLikesService = FoodLikesService;
 exports.FoodLikesService = FoodLikesService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService, food_service_1.FoodService])
 ], FoodLikesService);
 //# sourceMappingURL=food_likes.service.js.map

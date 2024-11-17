@@ -1,1 +1,1 @@
-{"version":3,"file":"update-food_rating.dto.js","sourceRoot":"","sources":["../../../src/food_ratings/dto/update-food_rating.dto.ts"],"names":[],"mappings":";;;AAAA,uDAAmD;AACnD,qEAA+D;AAE/D,MAAa,mBAAoB,SAAQ,IAAA,0BAAW,EAAC,4CAAmB,CAAC;CAAG;AAA5E,kDAA4E"}
+{"version":3,"file":"update-food_rating.dto.js","sourceRoot":"","sources":["../../../src/food_ratings/dto/update-food_rating.dto.ts"],"names":[],"mappings":";;;AAAA,uDAA6D;AAC7D,qEAA+D;AAE/D,MAAa,mBAAoB,SAAQ,IAAA,0BAAW,EAAC,IAAA,uBAAQ,EAAC,4CAAmB,EAAE,CAAC,SAAS,CAAC,CAAC,CAAC;CAAI;AAApG,kDAAoG"}
