@@ -1,10 +1,19 @@
 name: Deploy
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build:
-    runs-on: ubutu-lastet
+    runs-on: ubuntu-latest # Sửa lỗi chính tả
+
     steps:
-      - run: echo "Hello world"
+      # Checkout repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Run a simple script
+      - name: Print Hello World
+        run: echo "Hello world"
