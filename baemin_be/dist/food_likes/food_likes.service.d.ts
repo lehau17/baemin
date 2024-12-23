@@ -8,43 +8,43 @@ export declare class FoodLikesService {
     constructor(prisma: PrismaService, foodService: FoodService);
     create(data: CreateFoodLikeDto, sub: number): Promise<{
         id: number;
-        user_id: number | null;
-        food_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
+        food_id: number | null;
     }>;
     findAll(limit?: number, skip?: number, cursor?: number): Promise<{
         id: number;
-        user_id: number | null;
-        food_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
+        food_id: number | null;
     }[]>;
     findOne(id: number): Promise<{
         id: number;
-        user_id: number | null;
-        food_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
+        food_id: number | null;
     }>;
     update(id: number, data: UpdateFoodLikeDto): Promise<{
         id: number;
-        user_id: number | null;
-        food_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
+        food_id: number | null;
     }>;
     remove(id: number, user_id: number): Promise<{
         id: number;
-        user_id: number | null;
-        food_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
+        food_id: number | null;
     }>;
     toggleLike(user_id: number, food_id: number): Promise<{
         isDeleted: boolean;
@@ -60,29 +60,29 @@ export declare class FoodLikesService {
             created_at: Date | null;
             updated_at: Date | null;
             res_id: number | null;
-            cate_id: number | null;
             food_name: string | null;
             food_description: string | null;
             food_images: string | null;
             food_total_like: number | null;
             food_total_rating: number | null;
             food_avg_rating: number | null;
+            cate_id: number | null;
         };
     } & {
         id: number;
-        user_id: number | null;
-        food_id: number | null;
         status: number | null;
         created_at: Date | null;
         updated_at: Date | null;
+        user_id: number | null;
+        food_id: number | null;
     })[]>;
     listUserLiked(food_id: number): Promise<{
-        id: number;
         users: {
             id: number;
             usr_first_name: string;
             usr_last_name: string;
             usr_email: string;
         };
+        id: number;
     }[]>;
 }

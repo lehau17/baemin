@@ -7,63 +7,63 @@ export declare class FoodRatingsController {
     constructor(foodRatingsService: FoodRatingsService);
     create(createFoodRatingDto: CreateFoodRatingDto, req: Express.Request): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         user_id: number | null;
         food_id: number | null;
         food_rate_point: number | null;
         food_rate_comment: string | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
     }>;
     findAll(limit: number, skip?: number, cursor?: number): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         user_id: number | null;
         food_id: number | null;
         food_rate_point: number | null;
         food_rate_comment: string | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
     }[]>;
     findOne(id: number): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         user_id: number | null;
         food_id: number | null;
         food_rate_point: number | null;
         food_rate_comment: string | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
     }>;
     update(id: number, updateFoodRatingDto: UpdateFoodRatingDto, req: Express.Request): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         user_id: number | null;
         food_id: number | null;
         food_rate_point: number | null;
         food_rate_comment: string | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
     }>;
     remove(id: number, req: Express.Request): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         user_id: number | null;
         food_id: number | null;
         food_rate_point: number | null;
         food_rate_comment: string | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
     }>;
     rateFood({ food_id, food_rate_point, food_rate_comment, }: CreateFoodRatingDto, req: Express.Request): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         user_id: number | null;
         food_id: number | null;
         food_rate_point: number | null;
         food_rate_comment: string | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
     }>;
     getAverageRating(food_id: number): Promise<{
         food_id: number;
@@ -73,13 +73,13 @@ export declare class FoodRatingsController {
     getUserRatings(user_id: number, { cursor, limit, skip }: PaginationDto): Promise<{
         data: {
             id: number;
+            status: number | null;
+            created_at: Date | null;
+            updated_at: Date | null;
             user_id: number | null;
             food_id: number | null;
             food_rate_point: number | null;
             food_rate_comment: string | null;
-            status: number | null;
-            created_at: Date | null;
-            updated_at: Date | null;
         }[];
         filter: {
             cursor: number;
@@ -94,13 +94,13 @@ export declare class FoodRatingsController {
     getRatingOfMe({ cursor, limit, skip }: PaginationDto, req: Express.Request): Promise<{
         data: {
             id: number;
+            status: number | null;
+            created_at: Date | null;
+            updated_at: Date | null;
             user_id: number | null;
             food_id: number | null;
             food_rate_point: number | null;
             food_rate_comment: string | null;
-            status: number | null;
-            created_at: Date | null;
-            updated_at: Date | null;
         }[];
         filter: {
             cursor: number;
@@ -115,24 +115,24 @@ export declare class FoodRatingsController {
     getFoodRatings(food_id: number): Promise<({
         users: {
             id: number;
-            status: number | null;
-            created_at: Date | null;
-            updated_at: Date | null;
             usr_username: string | null;
             usr_password: string | null;
             usr_first_name: string | null;
             usr_last_name: string | null;
             usr_phone: string | null;
             usr_email: string | null;
+            status: number | null;
+            created_at: Date | null;
+            updated_at: Date | null;
         };
     } & {
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         user_id: number | null;
         food_id: number | null;
         food_rate_point: number | null;
         food_rate_comment: string | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
     })[]>;
 }

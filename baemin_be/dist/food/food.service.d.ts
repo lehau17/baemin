@@ -9,17 +9,17 @@ export declare class FoodService {
     constructor(prisma: PrismaService, restaurantService: RestaurantService);
     create(data: CreateFoodDto, userId: number): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         res_id: number | null;
-        cate_id: number | null;
         food_name: string | null;
         food_description: string | null;
         food_images: string | null;
         food_total_like: number | null;
         food_total_rating: number | null;
         food_avg_rating: number | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
+        cate_id: number | null;
     }>;
     findAll({ limit, skip, cursor, }: {
         limit?: number;
@@ -28,17 +28,17 @@ export declare class FoodService {
     }): Promise<{
         data: {
             id: number;
+            status: number | null;
+            created_at: Date | null;
+            updated_at: Date | null;
             res_id: number | null;
-            cate_id: number | null;
             food_name: string | null;
             food_description: string | null;
             food_images: string | null;
             food_total_like: number | null;
             food_total_rating: number | null;
             food_avg_rating: number | null;
-            status: number | null;
-            created_at: Date | null;
-            updated_at: Date | null;
+            cate_id: number | null;
         }[];
         filter: {
             limit: number;
@@ -51,17 +51,17 @@ export declare class FoodService {
     }>;
     findOne(id: number): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         res_id: number | null;
-        cate_id: number | null;
         food_name: string | null;
         food_description: string | null;
         food_images: string | null;
         food_total_like: number | null;
         food_total_rating: number | null;
         food_avg_rating: number | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
+        cate_id: number | null;
     }>;
     findFood({ limit, skip, cursor, name, cate, c_time, from_price, to_price, }: {
         limit?: number;
@@ -90,17 +90,17 @@ export declare class FoodService {
     }>;
     update(id: number, data: Prisma.foodsUpdateInput): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         res_id: number | null;
-        cate_id: number | null;
         food_name: string | null;
         food_description: string | null;
         food_images: string | null;
         food_total_like: number | null;
         food_total_rating: number | null;
         food_avg_rating: number | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
+        cate_id: number | null;
     }>;
     incLike(id: number): Promise<void>;
     desLike(id: number): Promise<void>;
@@ -108,16 +108,16 @@ export declare class FoodService {
     desTotalRating(id: number): Promise<void>;
     remove(id: number): Promise<{
         id: number;
+        status: number | null;
+        created_at: Date | null;
+        updated_at: Date | null;
         res_id: number | null;
-        cate_id: number | null;
         food_name: string | null;
         food_description: string | null;
         food_images: string | null;
         food_total_like: number | null;
         food_total_rating: number | null;
         food_avg_rating: number | null;
-        status: number | null;
-        created_at: Date | null;
-        updated_at: Date | null;
+        cate_id: number | null;
     }>;
 }
