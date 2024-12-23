@@ -13,7 +13,8 @@ RUN npm install
 COPY . .
 
 # Generate Prisma files and build
-RUN npm run prisma:generate
+RUN npm run prisma push
+RUN npm run prisma generate
 RUN npm run build
 
 # Stage 2: Production
