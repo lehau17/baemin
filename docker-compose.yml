@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  postgres:
+    container_name: some-ostgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: baemin # Tự động tạo cơ sở dữ liệu "baemin"
+    ports:
+      - "5432:5432"
+    networks:
+      - node-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  backend-service:
+    container_name: backend
+    build:
+      context: ./baemin_be
+    networks:
+      - node-network
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_HOST: some-postgres
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: 1234
+      DATABASE_PORT: 5432
+    ports:
+      - "3000:3000"
+
+networks:
+  node-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
