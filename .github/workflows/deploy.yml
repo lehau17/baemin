@@ -46,3 +46,7 @@ jobs:
 
             # Xóa các hình ảnh Docker không dùng đến
             docker images -f "dangling=true" -q | xargs -r docker rmi
+
+
+
+            # test
