@@ -7,7 +7,7 @@ WORKDIR /root/product-service
 COPY package.json package-lock.json ./  
 
 # Install dependencies
-RUN npm install --legacy-peer-deps  # Cài đặt dependencies với npm, có thể dùng --legacy-peer-deps nếu gặp vấn đề với peer dependencies
+RUN npm install 
 
 # Copy all application files
 COPY . .
@@ -27,6 +27,6 @@ COPY --from=build /root/product-service/package.json ./package.json
 COPY --from=build /root/product-service/package-lock.json ./package-lock.json
 
 # Install only production dependencies
-RUN npm install --production --legacy-peer-deps  # Cài đặt chỉ dependencies cho production
+RUN npm install 
 
 CMD ["npm", "run", "start:prod"]  # Chạy script start:prod của npm
