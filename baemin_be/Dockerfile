@@ -27,6 +27,7 @@ COPY --from=build /root/app/package-lock.json ./package-lock.json
 
 # Install only production dependencies
 RUN npm install --only=production
+RUN npm run prisma:generate
 
 # Use wait-for-postgres.sh to ensure DB is ready before starting the app
 CMD [ "npm", "run", "start:prod"]
