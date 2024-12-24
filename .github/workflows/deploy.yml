@@ -54,7 +54,7 @@ jobs:
             echo "==> Dọn dẹp các hình ảnh Docker không cần thiết..."
             dangling_images=$(docker images -f "dangling=true" -q)
             if [ -n "$dangling_images" ]; then
-              echo "$dangling_images" | xargs docker rmi
+              echo "$dangling_images" | xargs docker rmi || echo "khong xoa duoc"
               echo "Đã xóa các hình ảnh Docker không dùng."
             else
               echo "Không có hình ảnh Docker nào cần dọn dẹp."
