@@ -23,6 +23,7 @@ WORKDIR /root/app
 COPY --from=build /root/app/dist ./dist
 COPY --from=build /root/app/package.json ./package.json
 COPY --from=build /root/app/package-lock.json ./package-lock.json
+COPY --from=build /root/app/prisma ./prisma
 
 
 # Install only production dependencies
