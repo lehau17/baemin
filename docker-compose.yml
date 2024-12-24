@@ -22,8 +22,8 @@ services:
       context: ./baemin_be
     networks:
       - node-network
-    depends_on:
-      - postgres
+    # depends_on:
+    #   - postgres
     # environment:
     #   DATABASE_HOST: some-postgres
     #   DATABASE_USER: postgres
