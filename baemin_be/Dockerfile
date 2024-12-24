@@ -1,13 +1,12 @@
 # Stage 1: Build
 FROM node:20-alpine as build
-WORKDIR /root/product-service
+WORKDIR /root/app
 
 # Copy necessary files for dependencies installation
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy all application files
-COPY prisma ./prisma
+COPY . .
 
 # Generate Prisma files and build
 RUN npm run prisma:push
@@ -18,12 +17,12 @@ RUN npm run build
 
 # Stage 2: Production
 FROM node:20-alpine
-WORKDIR /root/product-service
+WORKDIR /root/app
 
 # Copy build output
-COPY --from=build /root/product-service/dist ./dist
-COPY --from=build /root/product-service/package.json ./package.json
-COPY --from=build /root/product-service/package-lock.json ./package-lock.json
+COPY --from=build /root/app/dist ./dist
+COPY --from=build /root/app/package.json ./package.json
+COPY --from=build /root/app/package-lock.json ./package-lock.json
 
 # Install only production dependencies
 RUN npm install --only=production
