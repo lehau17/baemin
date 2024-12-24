@@ -24,7 +24,12 @@ COPY --from=build /root/app/dist ./dist
 COPY --from=build /root/app/package.json ./package.json
 COPY --from=build /root/app/package-lock.json ./package-lock.json
 
+# Copy wait-for-postgres.sh script
+COPY wait-for-postgres.sh /wait-for-postgres.sh
+RUN chmod +x /wait-for-postgres.sh
+
 # Install only production dependencies
 RUN npm install --only=production
 
-CMD ["npm", "run", "start:prod"]
+# Use wait-for-postgres.sh to ensure DB is ready before starting the app
+CMD ["sh", "/wait-for-postgres.sh", "some-postgres", "npm", "run", "start:prod"]
