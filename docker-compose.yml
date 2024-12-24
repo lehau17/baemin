@@ -2,7 +2,7 @@ version: "3"
 
 services:
   postgres:
-    container_name: some-ostgres
+    container_name: some-postgres
     image: postgres:latest
     environment:
       POSTGRES_USER: postgres
