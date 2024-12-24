@@ -24,6 +24,7 @@ COPY --from=build /root/app/dist ./dist
 COPY --from=build /root/app/package.json ./package.json
 COPY --from=build /root/app/package-lock.json ./package-lock.json
 COPY --from=build /root/app/prisma ./prisma
+COPY --from=build /root/app/.env ./.env
 
 
 # Install only production dependencies
