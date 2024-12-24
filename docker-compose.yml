@@ -1,19 +1,20 @@
 version: "3"
 
 services:
-  postgres:
-    container_name: some-postgres
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: baemin
-    ports:
-      - "5432:5432"
-    networks:
-      - node-network
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+  # postgres:
+  #   container_name: some-postgres
+  #   image: postgres:latest
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: 1234
+  #     POSTGRES_DB: baemin
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - node-network
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #comment
 
   backend-service:
     container_name: backend
@@ -23,14 +24,14 @@ services:
       - node-network
     depends_on:
       - postgres
-    environment:
-      DATABASE_HOST: some-postgres
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: 1234
-      DATABASE_PORT: 5432
-      DATABASE_URL: postgresql://postgres:1234@some-postgres:5432/baemin
-      JWT_ACCESS_SECRET: day_la_password_cua_asscess
-      JWT_REFRESH_SECRET: day_la_password_cua_refresh
+    # environment:
+    #   DATABASE_HOST: some-postgres
+    #   DATABASE_USER: postgres
+    #   DATABASE_PASSWORD: 1234
+    #   DATABASE_PORT: 5432
+    #   DATABASE_URL: postgresql://postgres:1234@some-postgres:5432/baemin
+    #   JWT_ACCESS_SECRET: day_la_password_cua_asscess
+    #   JWT_REFRESH_SECRET: day_la_password_cua_refresh
 
     ports:
       - "3000:3000"
